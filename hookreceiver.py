@@ -18,7 +18,7 @@ else:
     app.config.from_pyfile('config.cfg')
 
 
-@app.route('/repo/<repo_name>/<token>',  methods=['GET', 'POST'])
+@app.route('/repo/<repo_name>/<token>',  methods=['POST'])
 def receive(repo_name, token):
     repo_config = app.config['REPOSITORIES'][repo_name]
     if not repo_config:
