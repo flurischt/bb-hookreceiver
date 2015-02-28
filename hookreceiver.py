@@ -2,7 +2,7 @@
 a small webapp to receive bitbucket POST hooks.
 
 checkout https://confluence.atlassian.com/display/BITBUCKET/POST+hook+management
-see tests.py for an example json request
+see test_hookreceiver.py for an example json request
 
 you'll need to export HOOKRECEIVER_CONFIG_FILE=path/to/config.cfg before running this
 
