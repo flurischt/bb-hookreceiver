@@ -2,6 +2,7 @@ import unittest
 import hookreceiver
 from os import environ
 
+
 class HookreceiverTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -52,6 +53,15 @@ class HookreceiverTestCase(unittest.TestCase):
         )
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.data, 'processed 1 commits')
+
+    def test_no_json(self):
+        rv = self.app.post('/repo/demo_repo/123')
+        self.assertEqual(rv.status_code, 400)
+
+    def test_invalid_method(self):
+        rv = self.app.get('/repo/demo_repo/123')
+        self.assertEqual(rv.status_code, 405)
+
 
 if __name__ == '__main__':
     unittest.main()

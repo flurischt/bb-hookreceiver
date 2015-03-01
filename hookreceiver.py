@@ -8,7 +8,7 @@ you'll need to export HOOKRECEIVER_CONFIG_FILE=path/to/config.cfg before running
 
 """
 import json, os
-from flask import Flask, request
+from flask import Flask, request, abort
 
 
 app = Flask(__name__)
@@ -23,8 +23,11 @@ def receive(repo_name, token):
     repo_config = app.config['REPOSITORIES'][repo_name]
     if not repo_config:
         return 'endpoint not configured'
-    data = json.loads(request.data)
-    return repo_config['handle'](token, data)
+    try:
+        data = json.loads(request.data)
+        return repo_config['handle'](token, data)
+    except ValueError:
+        abort(400)
 
 
 @app.route('/repo/<repo_name>')
